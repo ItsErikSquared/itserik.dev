@@ -1,18 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
-/* img.nosel {
-  pointer-events: none;
-}
-
-.nosel {
-  user-drag: none;
-  -webkit-user-drag: none;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-} */
-
 body {
   background: linear-gradient(90deg, #B8B1E4, #E291A4);
   font-family: 'Rubik', sans-serif;

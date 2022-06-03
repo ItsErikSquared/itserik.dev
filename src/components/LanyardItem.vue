@@ -73,9 +73,11 @@ export default {
         "
       />
       <div class="text">
-        <a :href="`https://duckduckgo.com/?q=${activity.name}`">{{
-          activity.name
-        }}</a>
+        <a
+          :href="`https://duckduckgo.com/?q=${activity.name}`"
+          target="_blank"
+          >{{ activity.name }}</a
+        >
         <p v-if="activity.state">{{ activity.state }}</p>
         <p v-if="activity.details">{{ activity.details }}</p>
       </div>
@@ -89,14 +91,18 @@ export default {
     <h5>Jamming...</h5>
     <div class="info">
       <div class="text">
-        <a :href="'https://open.spotify.com/track/' + spotify.track_id">
+        <a
+          :href="'https://open.spotify.com/track/' + spotify.track_id"
+          target="_blank"
+        >
           {{
-            spotify.song.split("-")[0].length > 33
-              ? spotify.song.split("-")[0].substring(0, 30) + "..."
-              : spotify.song.split("-")[0]
+            spotify.song.split(" - ")[0].length > 33
+              ? spotify.song.split(" - ")[0].substring(0, 30) + "..."
+              : spotify.song.split(" - ")[0]
           }}
         </a>
-        <p>{{ spotify.artist.split(";")[0] }}</p>
+        <p>on {{ spotify.album }}</p>
+        <p>by {{ spotify.artist.split(";")[0] }}</p>
       </div>
       <img :src="spotify.album_art_url" />
     </div>
@@ -104,6 +110,11 @@ export default {
 </template>
 
 <style>
+.spotify,
+.activity {
+  display: none;
+}
+
 @media only screen and (min-width: 750px) {
   h5,
   a,
@@ -140,6 +151,7 @@ export default {
     bottom: 0px;
     position: fixed;
     padding: 5px;
+    display: inherit;
   }
 
   .activity img,
@@ -160,7 +172,7 @@ export default {
     position: absolute;
   }
 
-  .activity .info .text p {
+  .info .text p {
     padding: 0px 7px;
     font-size: 12px;
   }
