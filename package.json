@@ -9,13 +9,16 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "devx": "vite --host",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@leonardssh/use-lanyard": "^1.0.4",
     "global": "^4.4.0",
+    "sass": "^1.52.1",
     "typed.js": "^2.0.12",
     "vue": "^3.2.33",
     "vue-router": "^4.0.14"

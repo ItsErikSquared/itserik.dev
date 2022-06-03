@@ -1,13 +1,23 @@
-<script setup lang="ts"></script>
-
 <template>
   <main>
-    <img class="logocenter" src="@/assets/logo.svg" />
-    <h1><span id="hi"></span></h1>
+    <img alt="Erik Cursive Logo" class="logocenter nosel" src="/logo.svg" />
+    <h1 class="nosel"><span id="hi"></span></h1>
   </main>
 </template>
 
 <style>
+@keyframes fadeIn {
+  0% {
+    opacity: 0%;
+  }
+  50% {
+    opacity: 0%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+
 .logocenter {
   width: 50%;
   max-width: 350px;
@@ -19,29 +29,53 @@
   animation: fadeIn;
   animation-duration: 10s;
 }
+
+h1 {
+  color: white;
+  text-align: center;
+  font-size: 2em;
+}
+
+@media only screen and (min-width: 750px) {
+  h1 {
+    font-size: 3em;
+  }
+}
 </style>
 
-<script>
+<script lang="ts">
 import Typed from "typed.js";
+let typed: Typed;
 export default {
   mounted() {
-    var typed = new Typed("#hi", {
+    document.title = "Hi, I'm Erik";
+    typed = new Typed("#hi", {
       strings: [
         "^750Hi!",
         "Hi^750,^750 I'm Erik!",
-        "Hi, I'm Erik.^1500 ^750I'm a developier.",
-        "Hi, I'm Erik. I'm a developer.",
-        "Hi, I'm Erik.^1000",
-        "Hi, I^2000 have no ^100c^100l^110u^110e^110 ^120w^120h^120a^120t^130 ^140I^140'^145m^145 ^150d^150o^150i^175n^175g^200.^210.^250.^2000",
+        "Hi, I'm Erik.^1500 ^750I'm a developier.^1000",
+        "Hi, I'm Erik. I'm a developer.^1500",
+        "Hi, I'm Erik.^3000",
+        "Hi, I^2000 have n^100o^100 c^100l^100u^100e ^110w^110h^120a^120t^120 ^140t^140o ^150t^160y^170p^180e^185 ^190h^190e^195r^195e^200.^200.^200.^3000",
         "Hi",
         "Hi^3000, I'm Erik^5000 :)",
-        "Hi, I'm Erik",
+        "Hi, I'm Erik^1000",
       ],
+      onComplete() {
+        typed.stop();
+        document
+          .querySelectorAll(".typed-cursor")[0]
+          .setAttribute("style", "display: none");
+      },
       smartBackspace: true,
       typeSpeed: 75,
       backDelay: 1500,
     });
     typed.start();
+  },
+  unmounted() {
+    document.title = "ItsErik";
+    typed.destroy();
   },
 };
 </script>
