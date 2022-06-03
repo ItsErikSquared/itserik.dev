@@ -3,8 +3,16 @@ import { ref } from "vue";
 import { useLanyard, type LanyardData } from "@leonardssh/use-lanyard";
 
 var presence = ref({});
-var spotify = ref({});
-var activity = ref({});
+var spotify = ref({
+  track_id: "",
+  song: "Loading...",
+  artist: "",
+  album_art_url: "/spotify.svg",
+});
+var activity = ref({
+  name: "Loading...",
+});
+var activityActive = ref(false);
 
 export default {
   data() {
@@ -12,6 +20,7 @@ export default {
       presence,
       spotify,
       activity,
+      activityActive,
     };
   },
   async mounted() {
@@ -20,23 +29,28 @@ export default {
       socket: true,
       onPresenceUpdate(received: LanyardData) {
         presence.value = received;
-        spotify.value = received.spotify;
+        spotify.value = received.spotify ? received.spotify : spotify.value;
 
-        activity.value = received.activities.filter((act) => act.type == 0)[0];
+        let activities = received.activities.filter((act) => act.type == 0);
+        if (activities.length > 0) {
+          activity.value = activities[0];
+          activityActive.value = true;
+        } else activityActive.value = false;
 
         console.log(received);
       },
     });
     console.log("Lanyard Initialized");
   },
-  unmounted() {
-    //todo close lanyard??
-  },
 };
 </script>
 
 <template>
-  <!-- <div v-if="activity" class="activity">
+  <div
+    v-if="activity"
+    class="activity"
+    :style="activityActive ? '' : 'opacity: 0%'"
+  >
     <h5>Doing...</h5>
     <div class="info">
       <img
@@ -59,14 +73,20 @@ export default {
         "
       />
       <div class="text">
-        <a>{{ activity.name }}</a>
-        <p>{{ activity.state }}</p>
-        <p>{{ activity.details }}</p>
+        <a :href="`https://duckduckgo.com/?q=${activity.name}`">{{
+          activity.name
+        }}</a>
+        <p v-if="activity.state">{{ activity.state }}</p>
+        <p v-if="activity.details">{{ activity.details }}</p>
       </div>
     </div>
-  </div> -->
-  <div v-if="presence.listening_to_spotify" class="spotify">
-    <h5>Jamming to...</h5>
+  </div>
+  <div
+    v-if="spotify"
+    class="spotify"
+    :style="presence.listening_to_spotify ? '' : 'opacity: 0%'"
+  >
+    <h5>Jamming...</h5>
     <div class="info">
       <div class="text">
         <a :href="'https://open.spotify.com/track/' + spotify.track_id">
@@ -105,8 +125,18 @@ export default {
     color: rgba(0, 0, 0, 0.7);
   }
 
+  .info {
+    display: flex;
+  }
+
+  .info .text {
+    display: block;
+    position: relative;
+  }
+
   .activity,
   .spotify {
+    transition: 0.5s;
     bottom: 0px;
     position: fixed;
     padding: 5px;
@@ -130,18 +160,14 @@ export default {
     position: absolute;
   }
 
+  .activity .info .text p {
+    padding: 0px 7px;
+    font-size: 12px;
+  }
+
   .spotify {
     right: 0px;
     text-align: right;
-  }
-
-  .info {
-    display: flex;
-  }
-
-  .info .text {
-    display: block;
-    position: relative;
   }
 }
 </style>
