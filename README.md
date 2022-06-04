@@ -7,3 +7,6 @@ its a website
 - [Vue's docs](https://vuejs.org) because I didn't know anything about Vue
 - all the people on stackoverflow and google
 - my mom
+
+### Built Using
+TypeScript, Vue 3, Cloudflare Pages, and tears 
