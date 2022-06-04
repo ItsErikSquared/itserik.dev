@@ -2,7 +2,7 @@
   <div class="icons">
     <NavBarItem
       icon="fa-brands fa-discord"
-      href="https://discord.gg/jntYEwe"
+      href="https://discord.com/users/161253450997301248"
     ></NavBarItem>
     <NavBarItem
       icon="fa-brands fa-github"
@@ -26,7 +26,7 @@ import LanyardItem from "./LanyardItem.vue";
 export default { components: { NavBarItem, LanyardItem } };
 </script>
 
-<style lang="scss">
+<style>
 .icons {
   position: fixed;
   bottom: 10px;

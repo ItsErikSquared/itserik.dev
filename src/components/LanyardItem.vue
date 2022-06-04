@@ -37,10 +37,15 @@ export default {
           activityActive.value = true;
         } else activityActive.value = false;
 
-        console.log(received);
+        //stfu lint
+        var discordEl = document.getElementById("discord");
+        if (discordEl) discordEl.className = received.discord_status;
+
+        if (sessionStorage.getItem("ied.debug")) {
+          console.log(received);
+        }
       },
     });
-    console.log("Lanyard Initialized");
   },
 };
 </script>
