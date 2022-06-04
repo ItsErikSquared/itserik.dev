@@ -61,20 +61,24 @@ export default {
       <img
         v-if="activity.assets && activity.assets.large_image"
         :src="
-          activity.assets.large_image.replace(
-            'mp:',
-            'https://media.discordapp.net/'
-          )
+          activity.assets.large_image.startsWith('mp:')
+            ? activity.assets.large_image.replace(
+                'mp:',
+                'https://media.discordapp.net/'
+              )
+            : `https://media.discordapp.net/app-assets/${activity.application_id}/${activity.assets.large_image}`
         "
       />
       <img
         v-if="activity.assets && activity.assets.small_image"
         class="small"
         :src="
-          activity.assets.small_image.replace(
-            'mp:',
-            'https://media.discordapp.net/'
-          )
+          activity.assets.small_image.startsWith('mp:')
+            ? activity.assets.small_image.replace(
+                'mp:',
+                'https://media.discordapp.net/'
+              )
+            : `https://media.discordapp.net/app-assets/${activity.application_id}/${activity.assets.small_image}`
         "
       />
       <div class="text">
