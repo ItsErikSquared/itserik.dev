@@ -41,6 +41,7 @@ h1 {
   color: white;
   text-align: center;
   font-size: 2em;
+  transition: 0.5s;
 }
 
 @media only screen and (min-width: 750px) {

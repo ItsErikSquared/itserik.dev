@@ -40,7 +40,7 @@ export default {
 
 .icon {
   font-size: 2em;
-  color: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.3);
   padding: 5px;
   transition: 0.5s;
 }

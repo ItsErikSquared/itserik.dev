@@ -119,76 +119,81 @@ export default {
 </template>
 
 <style>
-.spotify,
-.activity {
-  display: none;
-}
-
-@media only screen and (min-width: 750px) {
-  h5,
-  a,
-  p,
-  a:link,
-  a:visited {
-    margin: 0px;
-    padding: 5px;
-    color: rgba(0, 0, 0, 0.3);
-    transition: 0.5s;
-  }
-
-  p.title,
-  a.title {
-    padding: 5px;
-  }
-
-  a:hover {
-    color: rgba(0, 0, 0, 0.7);
-  }
-
-  .info {
-    display: flex;
-  }
-
-  .info .text {
-    display: block;
-    position: relative;
-  }
-
+@media screen and (max-width: 750px) {
   .activity,
   .spotify {
-    transition: 0.5s;
-    bottom: 0px;
-    position: fixed;
-    padding: 5px;
-    display: inherit;
+    position: relative !important;
   }
-
-  .activity img,
-  .spotify img {
-    height: 50px;
-    border-radius: 15px;
-  }
-
-  .activity {
-    left: 0px;
-    text-align: left;
-  }
-
-  .activity .small {
-    height: 20px;
-    bottom: 3px;
-    left: 40px;
-    position: absolute;
-  }
-
-  .info .text p {
-    padding: 0px 7px;
-    font-size: 12px;
-  }
-
-  .spotify {
+  .spotify .info {
+    position: absolute !important;
     right: 0px;
-    text-align: right;
   }
+}
+
+h5,
+a,
+p,
+a:link,
+a:visited {
+  margin: 0px;
+  padding: 5px;
+  color: rgba(0, 0, 0, 0.3);
+  transition: 0.5s;
+}
+
+p.title,
+a.title {
+  padding: 5px;
+}
+
+a:hover {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.info {
+  display: flex;
+}
+
+.info .text {
+  display: block;
+  position: relative;
+}
+
+.activity,
+.spotify {
+  opacity: 100%;
+  transition: 0.5s;
+  bottom: 0px;
+  position: fixed;
+  padding: 5px;
+  display: inherit;
+}
+
+.activity img,
+.spotify img {
+  height: 50px;
+  border-radius: 15px;
+}
+
+.activity {
+  left: 0px;
+  text-align: left;
+}
+
+.activity .small {
+  height: 20px;
+  bottom: 3px;
+  left: 40px;
+  position: absolute;
+}
+
+.info .text p {
+  padding: 0px 7px;
+  font-size: 12px;
+}
+
+.spotify {
+  right: 0px;
+  text-align: right;
 }
 </style>

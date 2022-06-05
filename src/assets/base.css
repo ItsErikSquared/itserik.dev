@@ -3,4 +3,5 @@
 body {
   background: linear-gradient(90deg, #B8B1E4, #E291A4);
   font-family: 'Rubik', sans-serif;
+  transition: 0.5s;
 }
