@@ -1,7 +1,6 @@
 <script lang="ts">
 import { ref } from "vue";
 import { useLanyard, type LanyardData } from "@leonardssh/use-lanyard";
-import Popper from "vue3-popper";
 
 var presence = ref({});
 var spotify = ref({
@@ -16,9 +15,6 @@ var activity = ref({
 var activityActive = ref(false);
 
 export default {
-  components: {
-    Popper,
-  },
   data() {
     return {
       presence,
@@ -44,6 +40,10 @@ export default {
         //stfu lint
         var discordEl = document.getElementById("discord");
         if (discordEl) discordEl.className = received.discord_status;
+
+        if (sessionStorage.getItem("ied.debug")) {
+          console.log(received);
+        }
       },
     });
   },
@@ -58,28 +58,17 @@ export default {
   >
     <h5>Doing...</h5>
     <div class="info">
-      <Popper
-        placement="right"
-        arrow
-        hover
-        :content="
-          activity.assets && activity.assets.large_text
-            ? activity.assets.large_text
-            : ''
+      <img
+        v-if="activity.assets && activity.assets.large_image"
+        :src="
+          activity.assets.large_image.startsWith('mp:')
+            ? activity.assets.large_image.replace(
+                'mp:',
+                'https://media.discordapp.net/'
+              )
+            : `https://media.discordapp.net/app-assets/${activity.application_id}/${activity.assets.large_image}`
         "
-      >
-        <img
-          v-if="activity.assets && activity.assets.large_image"
-          :src="
-            activity.assets.large_image.startsWith('mp:')
-              ? activity.assets.large_image.replace(
-                  'mp:',
-                  'https://media.discordapp.net/'
-                )
-              : `https://media.discordapp.net/app-assets/${activity.application_id}/${activity.assets.large_image}`
-          "
-        />
-      </Popper>
+      />
       <img
         v-if="activity.assets && activity.assets.small_image"
         class="small"
@@ -128,24 +117,6 @@ export default {
     </div>
   </div>
 </template>
-
-<style scoped>
-:deep(.popper) {
-  background: rgba(0, 0, 0, 0.8);
-  padding: 5px;
-  border-radius: 5px;
-  color: rgba(255, 255, 255, 0.7);
-}
-
-:deep(.popper #arrow::before) {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-:deep(.popper:hover),
-:deep(.popper:hover > #arrow::before) {
-  background: rgba(0, 0, 0, 0.8);
-}
-</style>
 
 <style>
 @media screen and (max-width: 750px) {
