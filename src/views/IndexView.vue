@@ -2,6 +2,9 @@
   <main>
     <img alt="Erik Cursive Logo" class="logocenter" src="/logo.svg" />
     <h1><span ref="hi" id="hi"></span></h1>
+    <div class="skip">
+      <a @click="stopTyping" v-if="typed" href="#">Skip</a>
+    </div>
     <div class="links">
       <!-- <LinkButton rref="/projects" text="Projects" /> -->
     </div>
@@ -9,6 +12,9 @@
 </template>
 
 <style>
+.skip {
+  text-align: center;
+}
 @keyframes fadeIn {
   0% {
     opacity: 0%;
@@ -56,10 +62,13 @@ import Typed from "typed.js";
 import type { Ref } from "vue";
 import { ref } from "vue";
 let hi: Ref<HTMLHeadingElement> = ref(null as unknown as HTMLHeadingElement);
-let typed: Typed;
+let typed: Ref<Typed> = ref(null as unknown as Typed);
 
 let stopTyping = () => {
-  if (typed) typed.destroy();
+  if (typed.value) {
+    typed.value.destroy();
+    typed.value = undefined as unknown as Typed;
+  }
   if (hi.value) hi.value.innerHTML = "Hi, I'm Erik";
   document.getElementsByClassName("logocenter")[0].className += " nofade";
 };
@@ -68,6 +77,7 @@ export default {
   setup() {
     return {
       hi,
+      typed,
     };
   },
   mounted() {
@@ -77,7 +87,7 @@ export default {
       //angry lint
       stopTyping();
     } else {
-      typed = new Typed("#hi", {
+      typed.value = new Typed("#hi", {
         strings: [
           "Hi!",
           "Hi^750,^750 I'm Erik!",
@@ -90,7 +100,7 @@ export default {
           "Hi, I'm Erik^1000",
         ],
         onComplete() {
-          typed.stop();
+          typed.value.stop();
           document
             .querySelectorAll(".typed-cursor")[0]
             .setAttribute("style", "display: none");
@@ -101,12 +111,12 @@ export default {
         backDelay: 1500,
         startDelay: 1000,
       });
-      typed.start();
+      typed.value.start();
     }
   },
   unmounted() {
     document.title = "ItsErik";
-    if (typed) typed.destroy();
+    if (typed.value) typed.value.destroy();
   },
   methods: {
     stopTyping,
