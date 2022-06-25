@@ -1,7 +1,7 @@
 <template>
   <main>
     <img alt="Erik Cursive Logo" class="logocenter" src="/logo.svg" />
-    <h1><span id="hi"></span></h1>
+    <h1><span ref="hi" id="hi"></span></h1>
     <div class="links">
       <!-- <LinkButton rref="/projects" text="Projects" /> -->
     </div>
@@ -52,20 +52,30 @@ h1 {
 </style>
 
 <script lang="ts">
-if (new URLSearchParams(window.location.search).get("c") === "t")
-  sessionStorage.clear();
 import Typed from "typed.js";
-// import LinkButton from "../components/LinkButton.vue";
+import type { Ref } from "vue";
+import { ref } from "vue";
+let hi: Ref<HTMLHeadingElement> = ref(null as unknown as HTMLHeadingElement);
 let typed: Typed;
+
+let stopTyping = () => {
+  if (typed) typed.destroy();
+  if (hi.value) hi.value.innerHTML = "Hi, I'm Erik";
+  document.getElementsByClassName("logocenter")[0].className += " nofade";
+};
+
 export default {
+  setup() {
+    return {
+      hi,
+    };
+  },
   mounted() {
     document.title = "Hi, I'm Erik";
 
     if (sessionStorage.getItem("ied.typed")) {
       //angry lint
-      let el = document.getElementById("hi");
-      if (el) el.innerHTML = "Hi, I'm Erik";
-      document.getElementsByClassName("logocenter")[0].className += " nofade";
+      stopTyping();
     } else {
       typed = new Typed("#hi", {
         strings: [
@@ -97,6 +107,9 @@ export default {
   unmounted() {
     document.title = "ItsErik";
     if (typed) typed.destroy();
+  },
+  methods: {
+    stopTyping,
   },
   // components: { LinkButton },
 };
