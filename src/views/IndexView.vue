@@ -84,7 +84,6 @@ export default {
     document.title = "Hi, I'm Erik";
 
     if (sessionStorage.getItem("ied.typed")) {
-      //angry lint
       stopTyping();
     } else {
       typed.value = new Typed("#hi", {
@@ -100,7 +99,7 @@ export default {
           "Hi, I'm Erik^1000",
         ],
         onComplete() {
-          typed.value.stop();
+          stopTyping();
           document
             .querySelectorAll(".typed-cursor")[0]
             .setAttribute("style", "display: none");
